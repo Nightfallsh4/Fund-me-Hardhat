@@ -24,7 +24,8 @@ module.exports = async (hre) => {
 		const ethUsdAggregator = await deployments.get("MockV3Aggregator");
 		ethUsdPriceFeedAddress = ethUsdAggregator.address;
 	} else {
-		ethUsdPriceFeedAddress = networkConfig[chainId][ethUsdPriceFeed];
+		console.log(networkConfig.chainId);
+		ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"];
 	}
 	// If contract doesnt exist, we deploy a minimal verion of it.
 
@@ -32,6 +33,7 @@ module.exports = async (hre) => {
 		from: deployer,
 		args: [ethUsdPriceFeedAddress],
 		log: true,
+		waitConfirmations: 1
 	});
 	log("----------------------------------------");
 };
